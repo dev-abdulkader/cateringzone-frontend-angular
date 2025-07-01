@@ -1,0 +1,295 @@
+<section class="py-20 bg-gray-50 min-h-screen">
+  <div class="max-w-xl mx-auto p-8 bg-white rounded-lg shadow-lg">
+    <h2 class="text-3xl font-bold mb-8 text-center">Create Your Account</h2>
+
+    <!-- Tabs -->
+    <div class="flex justify-center items-center mb-8 space-x-2 bg-gray-100 rounded-md p-1 max-w-md mx-auto">
+      <button
+        (click)="switchTab('customer')"
+        [class.bg-orange-600]="activeTab === 'customer'"
+        [class.text-white]="activeTab === 'customer'"
+        [class.text-gray-700]="activeTab !== 'customer'"
+        class="flex-1 text-center py-2 rounded-md font-semibold transition-colors hover:bg-orange-500 hover:text-white"
+      >
+        Customer
+      </button>
+      <button
+        (click)="switchTab('caterer')"
+        [class.bg-orange-600]="activeTab === 'caterer'"
+        [class.text-white]="activeTab === 'caterer'"
+        [class.text-gray-700]="activeTab !== 'caterer'"
+        class="flex-1 text-center py-2 rounded-md font-semibold transition-colors hover:bg-orange-500 hover:text-white"
+      >
+        Caterer
+      </button>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+
+      <!-- Customer tab -->
+      <div *ngIf="activeTab === 'customer'">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+          <div>
+            <label class="block text-gray-700 font-medium mb-1" for="first_name">First Name</label>
+            <input
+              id="first_name"
+              name="first_name"
+              type="text"
+              [(ngModel)]="formData.first_name"
+              required
+              class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 font-medium mb-1" for="last_name">Last Name</label>
+            <input
+              id="last_name"
+              name="last_name"
+              type="text"
+              [(ngModel)]="formData.last_name"
+              required
+              class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-gray-700 font-medium mb-1" for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            [(ngModel)]="formData.email"
+            required
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-gray-700 font-medium mb-1" for="phone">Phone</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            [(ngModel)]="formData.phone"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+          <div>
+            <label class="block text-gray-700 font-medium mb-1" for="password">Password</label>
+            <div class="relative">
+              <input
+                id="password"
+                name="password"
+                [type]="showPassword ? 'text' : 'password'"
+                [(ngModel)]="formData.password"
+                required
+                class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              />
+              <button
+                type="button"
+                (click)="showPassword = !showPassword"
+                class="absolute inset-y-0 right-2 px-2 text-sm text-gray-500 hover:text-orange-600 focus:outline-none"
+              >
+                {{ showPassword ? 'Hide' : 'Show' }}
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1" for="confirm_password">Confirm Password</label>
+            <div class="relative">
+              <input
+                id="confirm_password"
+                name="confirm_password"
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                [(ngModel)]="formData.confirm_password"
+                required
+                class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              />
+              <button
+                type="button"
+                (click)="showConfirmPassword = !showConfirmPassword"
+                class="absolute inset-y-0 right-2 px-2 text-sm text-gray-500 hover:text-orange-600 focus:outline-none"
+              >
+                {{ showConfirmPassword ? 'Hide' : 'Show' }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-gray-700 font-medium mb-1" for="location">Location</label>
+          <input
+            id="location"
+            name="location"
+            type="text"
+            [(ngModel)]="formData.location"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+          />
+        </div>
+
+        <div class="mb-8">
+          <label class="block text-gray-700 font-medium mb-2">Event Types Interested In</label>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <label
+              *ngFor="let service of serviceTypes.slice(0,6)"
+              class="flex items-center space-x-2 cursor-pointer select-none"
+            >
+              <input
+                type="checkbox"
+                [checked]="selectedServices.includes(service)"
+                (change)="toggleService(service)"
+                class="form-checkbox h-5 w-5 text-orange-600"
+              />
+              <span>{{ service }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Caterer tab -->
+      <div *ngIf="activeTab === 'caterer'">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+          <div>
+            <label class="block text-gray-700 font-medium mb-1" for="business_name">Business Name</label>
+            <input
+              id="business_name"
+              name="business_name"
+              type="text"
+              [(ngModel)]="formData.business_name"
+              class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 font-medium mb-1" for="contact_name">Contact Person</label>
+            <input
+              id="contact_name"
+              name="contact_name"
+              type="text"
+              [(ngModel)]="formData.contact_name"
+              class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+          <div>
+            <label class="block text-gray-700 font-medium mb-1" for="business_email">Business Email</label>
+            <input
+              id="business_email"
+              name="business_email"
+              type="email"
+              [(ngModel)]="formData.business_email"
+              class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label class="block text-gray-700 font-medium mb-1" for="business_phone">Business Phone</label>
+            <input
+              id="business_phone"
+              name="business_phone"
+              type="tel"
+              [(ngModel)]="formData.business_phone"
+              class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+          <div>
+            <label class="block text-gray-700 font-medium mb-1" for="password">Password</label>
+            <div class="relative">
+              <input
+                id="password"
+                name="password"
+                [type]="showPassword ? 'text' : 'password'"
+                [(ngModel)]="formData.password"
+                required
+                class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              />
+              <button
+                type="button"
+                (click)="showPassword = !showPassword"
+                class="absolute inset-y-0 right-2 px-2 text-sm text-gray-500 hover:text-orange-600 focus:outline-none"
+              >
+                {{ showPassword ? 'Hide' : 'Show' }}
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1" for="confirm_password">Confirm Password</label>
+            <div class="relative">
+              <input
+                id="confirm_password"
+                name="confirm_password"
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                [(ngModel)]="formData.confirm_password"
+                required
+                class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              />
+              <button
+                type="button"
+                (click)="showConfirmPassword = !showConfirmPassword"
+                class="absolute inset-y-0 right-2 px-2 text-sm text-gray-500 hover:text-orange-600 focus:outline-none"
+              >
+                {{ showConfirmPassword ? 'Hide' : 'Show' }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-gray-700 font-medium mb-1" for="location">Business Location</label>
+          <input
+            id="location"
+            name="location"
+            type="text"
+            [(ngModel)]="formData.location"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-gray-700 font-medium mb-1" for="description">Business Description</label>
+          <textarea
+            id="description"
+            name="description"
+            [(ngModel)]="formData.description"
+            rows="4"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+          ></textarea>
+        </div>
+
+        <div class="mb-8">
+          <label class="block text-gray-700 font-medium mb-2">Service Types Offered</label>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <label
+              *ngFor="let service of serviceTypes"
+              class="flex items-center space-x-2 cursor-pointer select-none"
+            >
+              <input
+                type="checkbox"
+                [checked]="selectedServices.includes(service)"
+                (change)="toggleService(service)"
+                class="form-checkbox h-5 w-5 text-orange-600"
+              />
+              <span>{{ service }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loading"
+        class="w-full bg-orange-600 text-white py-3 rounded-md font-semibold hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {{ loading ? 'Submitting...' : (activeTab === 'customer' ? 'Create Customer Account' : 'Create Caterer Account') }}
+      </button>
+    </form>
+  </div>
+</section>

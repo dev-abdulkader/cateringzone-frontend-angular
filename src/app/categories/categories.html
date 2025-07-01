@@ -1,0 +1,88 @@
+<section class="py-20">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+        Browse Catering Categories
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Find the perfect catering service for any occasion, cuisine preference, or dietary requirement
+      </p>
+    </div>
+
+    <!-- Popular Categories -->
+    <div class="mb-16">
+      <div class="flex items-center justify-between mb-8">
+        <h3 class="text-2xl font-bold text-gray-900">Popular Categories</h3>
+        <span
+          class="bg-orange-100 text-orange-800 px-3 py-1 rounded-md text-sm font-semibold"
+          >Most Booked</span
+        >
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div
+          *ngFor="let category of popularCategories"
+          class="border-0 shadow hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1 group rounded-lg p-4"
+        >
+          <div
+            [ngClass]="category.color"
+            class="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+          >
+            <fa-icon
+              [icon]="category.icon"
+              class="h-6 w-6 text-current"
+              aria-hidden="true"
+            ></fa-icon>
+          </div>
+          <h4
+            class="text-lg group-hover:text-orange-600 transition-colors font-semibold"
+          >
+            {{ category.title }}
+          </h4>
+          <p class="text-sm">{{ category.description }}</p>
+          <div class="flex items-center justify-between pt-2">
+            <span class="text-sm text-gray-500">{{ category.count }}</span>
+            <span
+              class="text-sm font-medium text-orange-600 group-hover:text-orange-700 cursor-pointer"
+              >View All →</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Categories -->
+    <div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-8">All Categories</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div
+          *ngFor="let category of allCategories"
+          class="border-0 shadow hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1 group rounded-lg p-4"
+        >
+          <div
+            [ngClass]="category.color"
+            class="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
+          >
+            <fa-icon
+              [icon]="category.icon"
+              class="h-6 w-6 text-current"
+              aria-hidden="true"
+            ></fa-icon>
+          </div>
+          <h4
+            class="text-lg group-hover:text-orange-600 transition-colors font-semibold"
+          >
+            {{ category.title }}
+          </h4>
+          <p class="text-sm">{{ category.description }}</p>
+          <div class="flex items-center justify-between pt-2">
+            <span class="text-sm text-gray-500">{{ category.count }}</span>
+            <span
+              class="text-sm font-medium text-orange-600 group-hover:text-orange-700 cursor-pointer"
+              >View All →</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

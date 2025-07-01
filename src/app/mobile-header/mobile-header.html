@@ -1,0 +1,78 @@
+<div class="p-5 block lg:hidden relative z-50">
+  <div class="flex items-center justify-between">
+    <!-- Logo -->
+    <a routerLink="/" class="flex items-center space-x-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+      </svg>
+      <span class="text-2xl font-bold text-gray-900">CaterHub</span>
+    </a>
+
+    <!-- Open Menu Button -->
+    <button type="button" (click)="isOpen = true" aria-label="Open Menu" class="text-gray-700">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Overlay -->
+  <div
+    *ngIf="isOpen"
+    class="fixed inset-0 bg-black/40 z-40"
+    (click)="closeMenu()"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Sidebar Menu -->
+  <nav
+    [class.translate-x-0]="isOpen"
+    [class.translate-x-full]="!isOpen"
+    class="fixed top-0 right-0 h-full w-72 bg-white shadow-lg z-50 transform transition-transform duration-300"
+    aria-label="Mobile Navigation"
+  >
+    <div class="flex items-center justify-between p-4 border-b border-gray-200">
+      <a routerLink="/" class="flex items-center space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+        </svg>
+        <span class="text-2xl font-bold text-gray-900">CaterHub</span>
+      </a>
+      <button (click)="closeMenu()" aria-label="Close Menu" class="text-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="p-6 space-y-6">
+      <!-- Navigation Links -->
+      <a
+        *ngFor="let link of navLinks"
+        [routerLink]="link.href"
+        (click)="closeMenu()"
+        class="block text-gray-700 font-medium hover:text-gray-900 transition-colors"
+      >
+        {{ link.name }}
+      </a>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col space-y-3 pt-4">
+        <a
+          routerLink="/login"
+          (click)="closeMenu()"
+          class="text-center px-4 py-3 rounded border border-gray-300 text-gray-700 hover:border-gray-400 transition"
+        >
+          Sign In
+        </a>
+        <a
+          routerLink="/signup"
+          (click)="closeMenu()"
+          class="text-center px-4 py-3 rounded bg-orange-600 text-white hover:bg-orange-700 transition"
+        >
+          Get Started
+        </a>
+      </div>
+    </div>
+  </nav>
+</div>
