@@ -1,0 +1,8 @@
+<!-- category.component.html -->
+<h2>Showing Category: {{ categoryId }}</h2>
+<div class="cards">
+  <div *ngFor="let category of categories" class="card">
+    <img [src]="category.image" alt="{{ category.name }}" />
+    <h3>{{ category.name }}</h3>
+  </div>
+</div>
